@@ -1,25 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import {
-  View, Text, Image, TextInput, TouchableOpacity,
-  StyleSheet, FlatList, ActivityIndicator, ScrollView
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+// app/index.tsx (ou o nome da sua tela principal)
 
-// Se estiver usando TypeScript, defina a tipagem de navegação:
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-// Defina o tipo do seu stack (exemplo genérico)
-type RootStackParamList = {
-  Info: { meal: any };
-};
-type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Info'>;
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, ScrollView } from 'react-native';
+import { Link } from 'expo-router'; // IMPORTANTE: Usar Link do expo-router
 
 const HomeScreen = () => {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [popularMeals, setPopularMeals] = useState<any[]>([]);
   const [selectedMeal, setSelectedMeal] = useState<any | null>(null);
-  // Para tipar navigation (se TS):
-  const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const fetchMeals = async (query = '') => {
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`;
@@ -49,10 +38,6 @@ const HomeScreen = () => {
     }
   };
 
-  const handleOpenDetails = (meal: any) => {
-    navigation.navigate('Info', { meal });
-  };
-
   const renderMeal = ({ item }: { item: any }) => (
     <TouchableOpacity onPress={() => setSelectedMeal(item)} style={styles.cardSmall}>
       <Image source={{ uri: item.strMealThumb }} style={styles.smallImage} />
@@ -71,8 +56,6 @@ const HomeScreen = () => {
           placeholder="Buscar receita..."
           value={search}
           onChangeText={setSearch}
-          autoCapitalize="none"
-          autoCorrect={false}
         />
         <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
           <Text style={styles.searchText}>Buscar</Text>
@@ -88,7 +71,7 @@ const HomeScreen = () => {
             data={popularMeals}
             horizontal
             renderItem={renderMeal}
-            keyExtractor={(item) => item.idMeal ?? item.strMeal} // fallback caso idMeal não exista
+            keyExtractor={(item) => item.idMeal}
             showsHorizontalScrollIndicator={false}
           />
         </>
@@ -102,18 +85,29 @@ const HomeScreen = () => {
             {selectedMeal.strCategory} • {selectedMeal.strArea}
           </Text>
           <Text style={styles.previewDesc}>
-            {selectedMeal.strInstructions
-              ? selectedMeal.strInstructions.substring(0, 140).trim() + '...'
-              : 'Sem descrição disponível.'}
+            {selectedMeal.strInstructions.substring(0, 140).trim() + '...'}
           </Text>
-          <TouchableOpacity
-            style={styles.detailButton}
-            onPress={() => handleOpenDetails(selectedMeal)}
+          
+          {/* ✅ CORREÇÃO PRINCIPAL: Usando o componente Link para navegar */}
+          <Link 
+            href={{
+              pathname: "/info", // Navega para o arquivo info.tsx
+              params: { mealId: selectedMeal.idMeal } // Passa o ID da receita
+            }}
+            asChild // Faz o Link se comportar como o componente filho (TouchableOpacity)
           >
-            <Text style={styles.detailText}>Ver Informações</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={styles.detailButton}>
+              <Text style={styles.detailText}>Ver Informações</Text>
+            </TouchableOpacity>
+          </Link>
         </View>
       )}
+
+      <Link href="/DetalheApp" asChild>
+        <TouchableOpacity style={styles.aboutButton}>
+          <Text style={styles.aboutButtonText}>Nos Conheça</Text>
+        </TouchableOpacity>
+      </Link>
     </ScrollView>
   );
 };
@@ -184,4 +178,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   detailText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+  aboutButton: {
+    marginTop: 30,
+    marginBottom: 40,
+    backgroundColor: '#6c757d',
+    padding: 12,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  aboutButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 });
