@@ -167,4 +167,87 @@ const styles = StyleSheet.create({
     },
 });
 
+<<<<<<< HEAD
 export default DetailScreen;
+=======
+type AnimatedTopicProps = {
+    style?: any;
+    children?: React.ReactNode;
+};
+
+const AnimatedTopic: React.FC<AnimatedTopicProps> = ({ children, style }) => {
+    const scale = React.useRef(new Animated.Value(1)).current;
+
+    const handleHoverIn = () => {
+        Animated.spring(scale, {
+            toValue: 1.05,
+            useNativeDriver: true,
+        }).start();
+    };
+
+    const handleHoverOut = () => {
+        Animated.spring(scale, {
+            toValue: 1,
+            useNativeDriver: true,
+        }).start();
+    };
+
+    return (
+        <Pressable
+            onHoverIn={handleHoverIn}
+            onHoverOut={handleHoverOut}
+            style={{ width: '100%' }}
+        >
+            <Animated.Text
+                style={[
+                    style,
+                    {
+                        transform: [{ scale }],
+                        backgroundColor: scale.interpolate({
+                            inputRange: [1, 1.05],
+                            outputRange: ['transparent', '#FFE5D0'],
+                        }),
+                    },
+                ]}
+            >
+                {children}
+            </Animated.Text>
+        </Pressable>
+    );
+};
+
+const DetailScreen: React.FC = () => {
+    return (
+        <SafeAreaView style={styles.container}>
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
+                <View style={styles.appDescriptionContainer}>
+                    <View style={styles.headerRow}>
+                        <Text style={styles.appTitle}>🍴 Cookify</Text>
+                        <Image
+                            source={{ uri: logoUrl }}
+                            style={styles.logo}
+                            resizeMode="contain"
+                        />
+                    </View>
+                    <Text style={styles.appDescription}>
+                        O Cookify é um aplicativo inovador para quem ama cozinhar ou deseja aprender novas receitas. 
+                        Ele oferece uma vasta coleção de receitas detalhadas, com ingredientes, modo de preparo e imagens ilustrativas.
+                    </Text>
+                    <AnimatedTopic style={styles.sectionTitle}>Como funciona?</AnimatedTopic>
+                    <Text style={styles.appDescription}>
+                        Navegue pelo catálogo, escolha uma receita e visualize todos os detalhes necessários para prepará-la. 
+                        Você pode conferir os ingredientes, seguir o passo a passo do modo de preparo e se inspirar com fotos dos pratos.
+                    </Text>
+                    <AnimatedTopic style={styles.sectionTitle}>O que o Cookify proporciona?</AnimatedTopic>
+                    <Text style={styles.appDescription}>
+                        Praticidade na cozinha, inspiração para novas refeições e facilidade para encontrar receitas de acordo com seu gosto. 
+                        Torne seu dia a dia mais saboroso e divertido com o Cookify!
+                    </Text>
+                </View>
+            </ScrollView>
+        </SafeAreaView>
+    );
+};
+
+export default DetailScreen;
+>>>>>>> e60ee11d3dc4bc1935ac07c656c65c9819e3ada3

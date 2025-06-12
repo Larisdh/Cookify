@@ -1,7 +1,16 @@
+<<<<<<< HEAD
 
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, ScrollView } from 'react-native';
 import { Link } from 'expo-router'; 
+=======
+// Remova todo o estado e funções relacionadas a favoritos
+// Remova o TouchableOpacity e o Text do botão de favorito do renderMeal
+
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, ScrollView } from 'react-native';
+import { Link } from 'expo-router';
+>>>>>>> e60ee11d3dc4bc1935ac07c656c65c9819e3ada3
 
 const HomeScreen = () => {
   const [search, setSearch] = useState('');
@@ -38,10 +47,12 @@ const HomeScreen = () => {
   };
 
   const renderMeal = ({ item }: { item: any }) => (
-    <TouchableOpacity onPress={() => setSelectedMeal(item)} style={styles.cardSmall}>
-      <Image source={{ uri: item.strMealThumb }} style={styles.smallImage} />
-      <Text style={styles.mealName}>{item.strMeal}</Text>
-    </TouchableOpacity>
+    <View style={styles.cardSmall}>
+      <TouchableOpacity onPress={() => setSelectedMeal(item)}>
+        <Image source={{ uri: item.strMealThumb }} style={styles.smallImage} />
+        <Text style={styles.mealName}>{item.strMeal}</Text>
+      </TouchableOpacity>
+    </View>
   );
 
   return (
@@ -86,12 +97,19 @@ const HomeScreen = () => {
           <Text style={styles.previewDesc}>
             {selectedMeal.strInstructions.substring(0, 140).trim() + '...'}
           </Text>
+<<<<<<< HEAD
           
          
           <Link 
             href={{
               pathname: "/info", 
               params: { mealId: selectedMeal.idMeal } 
+=======
+          <Link 
+            href={{
+              pathname: "/info",
+              params: { mealId: selectedMeal.idMeal }
+>>>>>>> e60ee11d3dc4bc1935ac07c656c65c9819e3ada3
             }}
             asChild
           >
@@ -104,7 +122,7 @@ const HomeScreen = () => {
 
       <Link href="/DetalheApp" asChild>
         <TouchableOpacity style={styles.aboutButton}>
-          <Text style={styles.aboutButtonText}>Nos Conheça</Text>
+          <Text style={styles.aboutButtonText}>Sobre Nós</Text>
         </TouchableOpacity>
       </Link>
     </ScrollView>
@@ -114,10 +132,28 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff', padding: 16 },
-  logo: { fontSize: 32, fontWeight: 'bold', textAlign: 'center', color: '#FF6347', marginTop: 10 },
-  welcome: { fontSize: 16, textAlign: 'center', color: '#555', marginBottom: 20 },
-  searchContainer: { flexDirection: 'row', marginBottom: 20 },
+  container: { 
+  flex: 1,
+  backgroundColor: '#fff',
+  padding: 16 
+},
+  logo: {
+ fontSize: 32,
+ fontWeight: 'bold',
+ textAlign: 'center',
+ color: '#FF6347',
+ marginTop: 10 
+},
+  welcome: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: '#555',
+    marginBottom: 20
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    marginBottom: 20
+  },
   input: {
     flex: 1,
     backgroundColor: '#f0f0f0',
@@ -133,8 +169,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
   },
-  searchText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
-  section: { fontSize: 20, fontWeight: '600', color: '#333', marginBottom: 10 },
+  searchText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  section: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 10
+  },
   cardSmall: {
     marginRight: 12,
     width: 140,
@@ -145,8 +190,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+    alignItems: 'center',
+    paddingBottom: 8,
   },
-  smallImage: { width: '100%', height: 100 },
+  smallImage: {
+    width: '100%',
+    height: 100
+  },
   mealName: {
     fontSize: 14,
     fontWeight: '500',
@@ -165,10 +215,28 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 4,
   },
-  previewImage: { width: '100%', height: 200, borderRadius: 12, marginBottom: 10 },
-  previewTitle: { fontSize: 22, fontWeight: 'bold', color: '#333' },
-  previewMeta: { fontSize: 14, color: '#666', marginVertical: 4 },
-  previewDesc: { fontSize: 16, color: '#444', marginTop: 10, textAlign: 'justify' },
+  previewImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: 12,
+    marginBottom: 10
+  },
+  previewTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#333'
+  },
+  previewMeta: {
+    fontSize: 14,
+    color: '#666',
+    marginVertical: 4
+  },
+  previewDesc: {
+    fontSize: 16,
+    color: '#444',
+    marginTop: 10,
+    textAlign: 'justify'
+  },  
   detailButton: {
     marginTop: 16,
     backgroundColor: '#FF6347',
@@ -176,7 +244,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
   },
-  detailText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+  detailText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
   aboutButton: {
     marginTop: 30,
     marginBottom: 40,
