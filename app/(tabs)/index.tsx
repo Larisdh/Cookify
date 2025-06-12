@@ -1,8 +1,7 @@
-// app/index.tsx (ou o nome da sua tela principal)
 
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, ScrollView } from 'react-native';
-import { Link } from 'expo-router'; // IMPORTANTE: Usar Link do expo-router
+import { Link } from 'expo-router'; 
 
 const HomeScreen = () => {
   const [search, setSearch] = useState('');
@@ -88,13 +87,13 @@ const HomeScreen = () => {
             {selectedMeal.strInstructions.substring(0, 140).trim() + '...'}
           </Text>
           
-          {/* ✅ CORREÇÃO PRINCIPAL: Usando o componente Link para navegar */}
+         
           <Link 
             href={{
-              pathname: "/info", // Navega para o arquivo info.tsx
-              params: { mealId: selectedMeal.idMeal } // Passa o ID da receita
+              pathname: "/info", 
+              params: { mealId: selectedMeal.idMeal } 
             }}
-            asChild // Faz o Link se comportar como o componente filho (TouchableOpacity)
+            asChild
           >
             <TouchableOpacity style={styles.detailButton}>
               <Text style={styles.detailText}>Ver Informações</Text>
