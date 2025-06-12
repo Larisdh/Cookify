@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-
-import React, { useEffect, useState } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, ScrollView } from 'react-native';
-import { Link } from 'expo-router'; 
-=======
 // Remova todo o estado e funções relacionadas a favoritos
 // Remova o TouchableOpacity e o Text do botão de favorito do renderMeal
 
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, ScrollView } from 'react-native';
 import { Link } from 'expo-router';
->>>>>>> e60ee11d3dc4bc1935ac07c656c65c9819e3ada3
 
 const HomeScreen = () => {
   const [search, setSearch] = useState('');
@@ -97,19 +90,10 @@ const HomeScreen = () => {
           <Text style={styles.previewDesc}>
             {selectedMeal.strInstructions.substring(0, 140).trim() + '...'}
           </Text>
-<<<<<<< HEAD
-          
-         
-          <Link 
-            href={{
-              pathname: "/info", 
-              params: { mealId: selectedMeal.idMeal } 
-=======
           <Link 
             href={{
               pathname: "/info",
               params: { mealId: selectedMeal.idMeal }
->>>>>>> e60ee11d3dc4bc1935ac07c656c65c9819e3ada3
             }}
             asChild
           >
