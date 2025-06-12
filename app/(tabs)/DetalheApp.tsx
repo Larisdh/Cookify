@@ -120,7 +120,7 @@ const DetailScreen: React.FC = () => {
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 <View style={styles.appDescriptionContainer}>
                     <View style={styles.headerRow}>
-                        <Text style={styles.appTitle}>Cookify</Text>
+                        <Text style={styles.appTitle}>🍴 Cookify</Text>
                         <Image
                             source={{ uri: logoUrl }}
                             style={styles.logo}
